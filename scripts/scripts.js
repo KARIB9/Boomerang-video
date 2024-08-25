@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('boomerang-video')
-    const btmPauseBlock = document.querySelector('.video-container')
     let reverse = false
     let interval
     const frameTime = 0.030
