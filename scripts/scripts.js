@@ -1,34 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('boomerang-video')
-    let reverse = false
+    const FRAME_TIME = 0.030
     let interval
-    const frameTime = 0.030
 
-    function playForward() {
-        reverse = false
-        video.play()
-    }
-
-    function playReverse() {
-        reverse = true
+    function reverseVideo() {
         clearInterval(interval)
 
         interval = setInterval(() => {
             if(video.currentTime <= 0) {
                 clearInterval(interval)
-                playForward()
+                video.play()
             } else {
-                video.currentTime -= frameTime
+                video.currentTime -= FRAME_TIME
             }
-        }, frameTime * 1000);
+        }, FRAME_TIME * 1000 )
     }
-    
-    video.addEventListener('timeupdate', () => {
-        if(!reverse && video.currentTime >= video.duration - frameTime) {
-            playReverse()
+
+    function onTimeUpdate() {
+        if(video.currentTime >= video.duration) {
+            reverseVideo()
         }
-    })
+    }
+
+    video.addEventListener('timeupdate', onTimeUpdate)
 
     video.play()
 })
-
